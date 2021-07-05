@@ -1,0 +1,102 @@
+<mvc:View controllerName="com.airdit.DashboardPrototype.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	displayBlock="true" xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data" xmlns:commons="sap.suite.ui.commons" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:layout="sap.ui.layout" height="100%">
+	<Shell id="shell">
+		<App id="app">
+			<f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true">
+				<!-- DynamicPage Title -->
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title text="Dashboard Theme Prototype"/>
+						</f:heading>
+						<f:breadcrumbs></f:breadcrumbs>
+						<f:expandedContent>
+							<Label text="dasbord theme depending on conditions"/>
+						</f:expandedContent>
+						<f:snappedContent>
+							<Label text="dasbord theme depending on conditions"/>
+						</f:snappedContent>
+						<f:snappedTitleOnMobile>
+							<Title text="dasbord theme depending on conditions"/>
+						</f:snappedTitleOnMobile>
+					</f:DynamicPageTitle>
+				</f:title>
+				<!-- DynamicPage Header -->
+				<f:header>
+					<f:DynamicPageHeader pinnable="true">
+						<!--<layout:HorizontalLayout allowWrapping="true">-->
+						<!--	<layout:VerticalLayout class="sapUiMediumMarginEnd">-->
+						<!--		<HBox>-->
+						<!--			<Text text="Revenue: "/>-->
+						<!--			<Input type="Text" width="200px" placeholder="Enter Color ..." showValueHelp="true" valueHelpRequest="openDefaultModeSample"-->
+						<!--				change="handleInputChange"/>-->
+						<!--		</HBox>-->
+						<!--	</layout:VerticalLayout>-->
+						<!--	<layout:VerticalLayout>-->
+						<!--		<HBox>-->
+						<!--			<Text text="Cost: "/>-->
+						<!--			<Input type="Text" width="200px" placeholder="Enter Color ..." showValueHelp="true" valueHelpRequest="openDefaultModeSample"-->
+						<!--				change="handleInputChange"/>-->
+						<!--		</HBox>-->
+						<!--	</layout:VerticalLayout>-->
+						<!--</layout:HorizontalLayout>-->
+						<fb:FilterBar reset="onReset" search="onSearch" showRestoreButton="true" showClearButton="true">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem groupName="__$INTERNAL$" name="Revenue" label="Revenue" partOfCurrentVariant="true" visibleInFilterBar="true"
+									mandatory="true">
+									<fb:control>
+										<Input value="#0091D5" name="Revenue" required="true" type="Text" width="200px" placeholder="Enter Color ..." showValueHelp="true" valueHelpRequest="openDefaultModeSample"
+											change="handleInputChange"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem groupName="__$INTERNAL$" name="Cost" label="Cost" labelTooltip="Cost" mandatory="true" partOfCurrentVariant="true"
+									visibleInFilterBar="true">
+									<fb:control>
+										<Input value="#EA6A47" name="Cost" required="true" type="Text" width="200px" placeholder="Enter Color ..." showValueHelp="true" valueHelpRequest="openDefaultModeSample"
+											change="handleInputChange"/>
+									</fb:control>
+								</fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<commons:ChartContainer showFullScreen="true" showPersonalization="false" autoAdjustHeight="true" showSelectionDetails="false"
+						class="expandClass">
+						<commons:dimensionSelectors>
+							<HBox>
+								<Title text="Dashboard"/>
+							</HBox>
+						</commons:dimensionSelectors>
+						<commons:content>
+							<commons:ChartContainerContent icon="sap-icon://bar-chart" title="Bar Chart">
+								<commons:content>
+									<viz:Popover id="idPopOver"></viz:Popover>
+									<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='column'>
+										<viz:dataset>
+											<viz.data:FlattenedDataset data="{/milk}">
+												<viz.data:dimensions>
+													<viz.data:DimensionDefinition name="Seasons" value="{Seasons}"/>
+												</viz.data:dimensions>
+												<viz.data:measures>
+													<viz.data:MeasureDefinition name="Revenue" value="{Revenue}"/>
+													<viz.data:MeasureDefinition name="Cost" value="{Cost}"/>
+												</viz.data:measures>
+											</viz.data:FlattenedDataset>
+										</viz:dataset>
+										<viz:feeds>
+											<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Revenue,Cost"/>
+											<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Seasons"/>
+										</viz:feeds>
+									</viz:VizFrame>
+								</commons:content>
+							</commons:ChartContainerContent>
+						</commons:content>
+					</commons:ChartContainer>
+				</f:content>
+			</f:DynamicPage>
+		</App>
+	</Shell>
+</mvc:View>
